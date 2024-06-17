@@ -1,0 +1,19 @@
+1. Create Playwright folder
+2. Open with VS code 
+3. Open new Terminal
+4. npm init playwright@latest (can copy from playwright automation tool installation)
+5. y
+6. Do you want to use Typescript/Javascript? Javascript
+7. Enter
+8. tests end to end
+9. Enter
+10. Git worflow ===> false
+11. Enter
+12. npx playwright installation===> True
+13. Enter
+14. Will get Happy Hacking ===> also get package json ====> demo--todo--apn--spe
+15. npx playwright test example.spec.js --headed (final testing)
+(Sme browser will open and close)
+Now 100% done ...continue coding
+
+Open playwright.config.js folder and comment the firefox and webkit module 
