@@ -17,3 +17,16 @@
 Now 100% done ...continue coding
 
 Open playwright.config.js folder and comment the firefox and webkit module 
+
+
+to run the program =====>  npx playwright test TC01BasicLogin.spec.js --headed
+
+//<input data-v-1f99f73c="" class="oxd-input oxd-input--active oxd-input--error" name="username" placeholder="Username" autofocus="">
+//TagName[attr = "Value"]
+//input[name ="username"]
+
+//goto ===> url ke liye
+// locator =====> html element ke liye
+
+// --headed likhne se hume execution terminal me dikhata hai
+// nai likha to sara execution backend me hoga and humme srf result terminal me milega

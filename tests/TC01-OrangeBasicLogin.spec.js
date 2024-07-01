@@ -1,6 +1,7 @@
 // 18th June 2024
 
 const {test,expect} = require('@playwright/test')
+const { lutimesSync } = require('fs')
 
 test('Verify login with valid username and password for Orange HRM', async({page})=>{
     // define the expect locator here so access it aftwards
@@ -41,3 +42,9 @@ test('Verify login with invalid username and password for orange HRM', async({pa
 //<input data-v-1f99f73c="" class="oxd-input oxd-input--active oxd-input--error" name="username" placeholder="Username" autofocus="">
 //TagName[attr = "Value"]
 //input[name ="username"]
+
+//goto ===> url ke liye
+// locator =====> html element ke liye
+
+// --headed likhne se hume execution terminal me dikhata hai
+// nai likha to sara execution backend me hoga and humme srf result terminal me milega
