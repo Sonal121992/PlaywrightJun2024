@@ -1,0 +1,207 @@
+
+Playwright Notes
+
+------------------------------------------------------------
+A) Basic
+-----------------------------------------------------------
+
+
+1. Extension for playwright file is spec.js
+2. always start the playwright coding with 
+    const {test,expect} = require('@playwright/test')
+3. To run the test case we need to write following syntax in the terminal playwright
+    npx playwright test file name --headed
+4. After the initial code const in playwright
+5. then start with test('....',async({page})={......})
+6. then inside test curly bracket write await page.goto('...page to visit....')
+7. Normal structure is like below:
+
+const{test,expect} = require('@playwright/test)
+test('......',async({page})=>{
+    await page.goto('page to visit') //===> for arrangement ===> for url
+    await page.locator(......) //===> for action
+    await page.expect(.......) //===> for assertion
+})
+
+8. Why we write async await
+====> Because we want to execute the code in one by one manner....
+===> with async everything will run at a time and with await we are holding some execution for other code to run
+
+9. //goto ===> url ke liye
+    // locator =====> html element ke liye
+
+10. 
+// --headed likhne se hume execution terminal me dikhata hai
+// nai likha to sara execution backend me hoga and humme srf result terminal me milega
+
+11. command writing inside await 
+    a) await page.goto('......') ====> is use for url
+    b) await page.locator('attr/tagname').fill('....') ===> fill is a locator
+
+        In attr/tagname we can use id, class, role, value, tagname, img, alt, etc......
+
+            Here we can use different locators
+
+            i) fill('...') ===> Set a value to the input field. 
+            ii) click() ===> for button
+
+    c) await expect(page.locator('attr/tagname')).toHaveText() ===> here we use locator assertion
+            different locator assertion we use here are
+
+            i) toHaveText() ==> if we want to find that specific text
+            ii) toBeVisible() ==> if want to just see that element
+            iii) toHaveTitle() ==> if want to verify the title
+            iv) toHaveUrl() ==> if want to verify url
+
+        we can also write assertion as:
+
+            await expect(page).toHaveURL('...')
+            await expect(page).toHaveTitle('..')
+
+    d) CSS Selectors 
+    //tagname[attr='Value'] ==> input[id="user-name"]
+    //by id ==> # before id attr value ==> #user-name
+    //by class ==> . before class attr value  ==> .btn_action
+    //by id/Class aatr nd value ==> [attr ='Value'] ==> [name="user-name"]
+
+12. <input name="first_name" type="text" class="feedback-input" placeholder="First Name" fdprocessedid="r7zegn">
+      ||    ||          ||
+    tagname attribute  Value
+
+-------------------------------------
+B) Special Properties
+-------------------------------------
+
+test.only ===> if we want to run specific test case only
+
+
+----------------------------------------
+C) Defining the method before using it
+--------------------------------------------
+1. with the use of 'let' varaible we define the method in prior 
+2. so that we don't have to write it again and again
+3. even we can avoid long codes with this, will reduce the mistakes even
+4. we will define it like as below:
+
+    let checkbox1 = await page.locator('#vfb-6-0')
+
+    let radio2 = page.locator('#vfb-7-2')
+
+
+-----------------------------------------
+C) Radio button
+------------------------------------------
+
+1. it can be click only one at a time
+2. button can be check() or click()
+3. but radio button can't be uncheck()
+4. Generally syntax here is 
+
+    await page.locator('#vfb-7-2').check() ===> here we can use click also
+
+5. assertion is like below:
+
+    await expect(page.locator('[value="Option 1"]')).not.toBeChecked()
+
+
+------------------------------------------------------
+D) checkbox
+------------------------------------------------------
+
+1. We can check multiple checkboxes at a time
+2. checkbox can be check()/click() or uncheck()
+
+        await expect(page.locator('#vfb-6-0')).not.toBeChecked()
+
+        let checkbox1 = await page.locator('#vfb-6-0')
+        checkbox1.check()
+        await expect(checkbox1).toBeChecked() // ====> this is for assertion
+
+3. we can use check() as well click()
+
+--------------------------------------------------------------------------------------------------------
+E) Locators
+--------------------------------------------------------------------------------------------------------
+
+1. There are different locators, but mostly we use:
+    a) getByAltText
+    b) getByLabel
+    c) getByPlaceholder
+    d) getByRole
+    e) getByTestId
+    f) getByText
+    g) getByTitle
+    h) .locator
+
+__________________
+a) getByAltText
+__________________
+
+    1. We search here by altText.
+    2. here we follow the same method like 
+    
+    test('.....',async({page})={
+        ....
+    })
+
+    3. then we will visit to url with
+
+        await page.goto("............")
+    
+    4. then our locator
+
+        await expect(page.getByAltText('letcode')).toBeVisible()
+
+    5. then we can use let to save the line of code
+
+        let ele = page.getByAltText('letcode')
+        await expect(ele).toBeVisible()
+
+__________________
+b) getByLabel
+__________________
+
+    1. by getlabel locator:
+
+    await expect(page.getByLabel('main navigation')).toBeVisible()
+
+    2. with the use of let:
+
+    let ele = page.getByLabel('main navigation')
+    await expect(ele).toBeVisible()
+
+______________________
+c) getByPlaceholder
+_______________________
+
+    await expect(page.getByPlaceholder('First Name')).toBeVisible()
+
+    let plcHold = page.getByPlaceholder('First Name')
+    await expect(plcHold).toBeVisible()
+
+______________________________
+d) getByRole
+_______________________________
+
+    await expect(page.getByRole('navigation')).toBeVisible()
+
+    let role1 = page.getByRole('navigation')
+    await expect(role1).toBeVisible()
+
+___________________________________
+e) getByText
+___________________________________
+
+    await expect(page.getByText('WebdriverUniversity.com (Dropdown Menu(s), Checkboxe(s), Radio Button(s))')).toBeVisible()
+
+    let txt = page.getByText('WebdriverUniversity.com (Dropdown Menu(s), Checkboxe(s), Radio Button(s))')
+    await expect(txt).toBeVisible()
+
+________________________________________
+f) getByTitle
+__________________________________________
+
+    await expect(page.getByTitle('Koushik Chatterjee')).toBeVisible()
+
+    let title = page.getByTitle('Koushik Chatterjee')
+    await expect(title).toBeVisible()

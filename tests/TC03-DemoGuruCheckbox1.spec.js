@@ -50,3 +50,5 @@ test.only('Handling checkboxes in playwright with click method',async({page})=>{
 })
 
 // npx playwright test TC03-DemoGuruCheckbox.spec.js --headed
+
+// playwright.dev/docs/locators
