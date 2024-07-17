@@ -1,12 +1,12 @@
 const {test,expect} = require('@playwright/test')
 
-// getByAltText
-// getByLabel
-// getByPlaceholder
-// getByRole
+// getByAltText ===> ALt attribute value
+// getByLabel ==> label tag name ==> text ==> arial-label attribute ==> atr value
+// getByPlaceholder ==> placeholder attribute value
+// getByRole ==> role as per element and text
 // getByTestId
-// getByText
-// getByTitle
+// getByText ==> Text Value
+// getByTitle ==> Title attribute value
 // .locator
 
 // getByAltText
@@ -45,7 +45,7 @@ test('Verify getByRole method in playwright',async({page})=>{
 })
 
 // getByText
-test.only('Verify getByText method in playwright',async({page})=>{
+test('Verify getByText method in playwright',async({page})=>{
     await page.goto('https://webdriveruniversity.com/Dropdown-Checkboxes-RadioButtons/index.html')
     let txt = page.getByText('WebdriverUniversity.com (Dropdown Menu(s), Checkboxe(s), Radio Button(s))')
     await expect(txt).toBeVisible()
@@ -53,12 +53,21 @@ test.only('Verify getByText method in playwright',async({page})=>{
 })
 
 // getByTitle
-test.only('Verify getByTitle method in playwright',async({page})=>{
+test('Verify getByTitle method in playwright',async({page})=>{
     await page.goto('https://letcode.in/test#google_vignette')
     let title = page.getByTitle('Koushik Chatterjee')
     await expect(title).toBeVisible()
     await expect(title).toHaveText('Koushik Chatterjee')
     await expect(title).toHaveAttribute('target','_blank')
+})
+
+// getByTestID
+test.only('Verify getByTestId method in playwright',async({page})=>{
+    await page.goto('https://www.atlassian.com/')
+    let Icon = page.getByTestId('global-nav-search-icon')
+    await Icon.first().click()
+    await expect(page.locator('#autocomplete-0-input')).toBeVisible()
+    await page.waitForTimeout(3000)
 })
 
 // npx playwright test TC04-LocatorMetWithLet.spec.js --headed
