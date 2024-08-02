@@ -124,18 +124,18 @@ E) Locators
 --------------------------------------------------------------------------------------------------------
 
 1. There are different locators, but mostly we use:
-    a) getByAltText
-    b) getByLabel
-    c) getByPlaceholder
-    d) getByRole
+    a) getByAltText ==> Alt attribute value
+    b) getByLabel ==> label tagname ==> text ==> arial-label attribute ==> atr value
+    c) getByPlaceholder ==> placeholder attribute value
+    d) getByRole ==> role as per element and text
     e) getByTestId
-    f) getByText
-    g) getByTitle
+    f) getByText ==> Text Value
+    g) getByTitle ==> Title attribute value
     h) .locator
 
-__________________
-a) getByAltText
-__________________
+    __________________
+    a) getByAltText
+    __________________
 
     1. We search here by altText.
     2. here we follow the same method like 
@@ -157,9 +157,9 @@ __________________
         let ele = page.getByAltText('letcode')
         await expect(ele).toBeVisible()
 
-__________________
-b) getByLabel
-__________________
+    __________________
+    b) getByLabel
+    __________________
 
     1. by getlabel locator:
 
@@ -170,38 +170,339 @@ __________________
     let ele = page.getByLabel('main navigation')
     await expect(ele).toBeVisible()
 
-______________________
-c) getByPlaceholder
-_______________________
+    ______________________
+    c) getByPlaceholder
+    _______________________
 
     await expect(page.getByPlaceholder('First Name')).toBeVisible()
 
     let plcHold = page.getByPlaceholder('First Name')
     await expect(plcHold).toBeVisible()
 
-______________________________
-d) getByRole
-_______________________________
+    ______________________________
+    d) getByRole
+    _______________________________
 
     await expect(page.getByRole('navigation')).toBeVisible()
 
     let role1 = page.getByRole('navigation')
     await expect(role1).toBeVisible()
 
-___________________________________
-e) getByText
-___________________________________
+    ___________________________________
+    e) getByText
+    ___________________________________
 
     await expect(page.getByText('WebdriverUniversity.com (Dropdown Menu(s), Checkboxe(s), Radio Button(s))')).toBeVisible()
 
     let txt = page.getByText('WebdriverUniversity.com (Dropdown Menu(s), Checkboxe(s), Radio Button(s))')
     await expect(txt).toBeVisible()
 
-________________________________________
-f) getByTitle
-__________________________________________
+    ________________________________________
+    f) getByTitle
+    __________________________________________
 
     await expect(page.getByTitle('Koushik Chatterjee')).toBeVisible()
 
     let title = page.getByTitle('Koushik Chatterjee')
     await expect(title).toBeVisible()
+
+    ______________________________
+    g) getByTestID
+    ______________________________
+
+
+    let Icon = page.getByTestId('global-nav-search-icon')
+    await Icon.first().click()
+    await expect(page.locator('#autocomplete-0-input')).toBeVisible()
+
+    ==> We are checking the code with ID 
+    ==> There were 2 ID with same code, but we want first therefore will right first() and then click
+    ==> On click we will see the assertion whether it is available or not
+
+------------------------------------------------------------------------------------------------
+F) MouseActions
+-------------------------------------------------------------------------------------------------
+
+    We will see the coding with different action with mouse like
+        a) click
+        b) Right click
+        c) Double click
+        d) Hover
+
+    First we will write ==> const {test, expect} = require('@playwright/test')
+
+    a) click()
+        i) click se normal click wala function hum attend karte hai
+        ii) ANd assertion check karate hai 
+
+    b) Double click
+        i) On the given website we will see for the double click button element
+        ii) For doubleclick button we have method ==> dblclick()
+        iii) so write this method instead of click()
+        iv) Then you can do the assertion by toBeVisible() or toHaveText() methods
+
+    c) Right Click()
+        i) On the given website we will search for the rightclick button element
+        ii) Once we find rightClickBtn element.
+        iii) Now we have to click that element with right button of mouse
+        iv) So will write the click method as following:
+            
+                click({button: 'right'})
+
+        v) Then we will do the assertion by toBeVisible() or toHaveText() methods
+
+    d) Mouse Hover()
+        i) Here we will changes just by moving the mouse over the element
+        ii) In the given website .dropbtn element class is for mouse hover action
+        iii) First we will locate it then will use the method hover() for mouse movement
+        iv) Then we will check the assertion with toBeVisible() or toHaveText() methods
+        v) on hover we will get some element, on click on that certain element
+        vi) we will one alert message pop up
+
+        page.on('dialog',async simpleAlert =>{
+        await expect(simpleAlert.message()).toContain('Well done you clicked on the link!')
+        await simpleAlert.accept()
+        })
+
+--------------------------------------------------------------------------------
+G) KeyBoard Actions 
+--------------------------------------------------------------------------------
+
+    1. We normally start with const {test, expect} = require('@playwright/test')
+    2. Then will write the test case describtion
+        test('Verify keyboardAction in playwright',async({page})=>{.....})
+    3. First we will go for website visit
+        await page.goto('https://gotranscript.com/text-compare')
+    4. There are number of keyboard actions. A superset of the key values can be found here.
+        Examples:
+        1) F1 - F12, 
+        2) Digit0- Digit9, 
+        3) KeyA- KeyZ, 
+        4) Backquote, 
+        5) Minus, 
+        6) Equal, 
+        7) Backslash, 
+        8) Backspace, 
+        9) Tab, 
+        10) Delete,
+        11) Enter, 
+        12) Home, 
+        13) Insert, 
+        14) PageDown, 
+        15) PageUp, 
+        16) ArrowRight, 
+        17) ArrowUp, 
+        18) Escape, 
+        19) ArrowDown, 
+        20) End,  etc.
+    4. Now we want to click on first box to write the text, therefore
+
+        await page.keyboard.down('PageDown')
+
+        ==> keyboard.down ==> Dispatches a keydown event. ==> to select the text box
+
+    5. Now we want to locate the text box and then fill that text box.
+
+        await page.locator('[name="text1"]').fill('I am learning playwright')
+
+    6. Now select all the content in the text box by "ctrl+a".
+
+        await page.locator('[name="text1"]').fill('I am learning playwright')
+
+    7. After selecting all the text we have to copy it with "ctrl+c".
+
+        await page.keyboard.press('Control+C')
+
+    8. Now as we want to paste it to other text box we have to locate that text box.
+
+        await page.locator('[name="text2"]').click()
+
+    9. On locating we need to shift our cursor to that text box via tab.
+
+        await page.keyboard.press('Tab')
+
+    10. Now as we are moved to that text box we have to paste the selected content in that text box
+
+        await page.keyboard.press('Control+V')
+
+    11. Then there is a button to compare the text whether it is same or not
+
+        await page.locator('#recaptcha').click()
+
+    a) In this case scenario we have always use keyboard. because we are working with keyword element.
+    b) Some keys are already mentioned in playwright, therefore we just have to use it.
+
+------------------------------------------------------------------
+H) Alerts
+------------------------------------------------------------------
+
+    1. There are 3 types of alert:
+        a) JS Simple Alerts
+        b) JS Confirm Alerts
+        c) JS Prompt Alerts
+
+    2. Here again we start with   
+
+        const {test,expect} = require('@playwright/test')
+
+    A) JS SImple Alerts
+
+        1) Start the test case by describing the scenario
+
+            test('Verify Handle js simple in playwright',async({page})=>{....})
+
+        2) If the pop message have only OK button then that pop up msg comes under simple alert.
+        
+        4) Will click on the button from were we get the pop up msg.
+
+            await page.locator('[onclick="jsAlert()"]').click()
+
+        5) Then write the pop up dialog for simple alert
+
+            page.on('dialog',async simpleAlert=>{
+                //console.log(simpleAlert.message())
+                await expect(simpleAlert.message()).toContain('I am a JS Alert') // ===> When we get the pop up msg we will get this message in pop along with OK button
+                await simpleAlert.accept() //==> Waiting to click on ok means accept
+                console.log(simpleAlert.type())
+            })
+
+        a) Same Simple alert we have done dempblaze website 
+
+            1. just there are little varaition
+
+
+    B) JS Confirm Alert
+        1) same write test case scenario then visit website with goto
+        2) Then locate JS COnfirm button and click on it to get the pop up message
+
+            await page.locator('[onclick="jsConfirm()"]').click()
+        
+        3) JS COnfirm ALert contains 2 button OK for Accept and Cancel for dismiss
+
+        3) Then write the program for pop up message
+            page.on('dialog',async confirm =>{
+                console.log(confirm.type())
+                await expect(confirm.message()).toContain('I am a JS Confirm')
+                console.log(confirm.message())
+                await expect(confirm.type()).toContain('confirm')
+                //await confirm.accept()
+                await confirm.dismiss()
+            })
+        4) Here if we want to accept the pop up click okay
+         for OK click we will have
+            await confirm.accept()
+        5) and if want to reject the pop up message the click cancel
+            for Cancel click we will have
+             await confirm.dismiss()
+        6) Then will do the assertion for the result we get
+            for OK
+                await expect(page.locator('#result')).toHaveText('You clicked: Ok')
+            for Cancel
+                 await expect(page.locator('#result')).toHaveText('You clicked: Cancel')
+
+    C) JS Prompt ALert
+        1) Start with test case scenario then visit page
+        2) Prompt alert have a text box to write the message and have OK and CANCEL button
+        3) locate the js prompt button and click it
+            await page.locator('[onclick="jsPrompt()"]').click()
+
+        4) Check the dialog box that popped up.
+                page.on('dialog',async prompt=>{
+                    await expect(prompt.message()).toContain('I am a JS prompt')
+                    await expect(prompt.type()).toContain('prompt')
+                    //console.log(prompt.message())
+                    //console.log(prompt.type())
+                    //prompt.accept('Playwright')
+                    prompt.dismiss()
+                })
+        5) first we are checking with assertion for the message written on the pop up
+        6) and the type of the alert msg
+        7) Then we accept the alert by writting the msg in the text box.
+            prompt.accept('Playwright')
+        8) We can also accept this alert without writting anything, but then in assertion we will not get any message.
+        9) For accept we will have the assertion as
+            await expect(page.locator('#result')).toHaveText('You entered: Playwright')
+
+        10) If we want to reject the alert
+            prompt.dismiss() 
+        11) For reject we will have the assertion as:
+            await expect(page.locator('#result')).toHaveText('You entered: null')
+
+-------------------------------------------------------------------------------------
+I) Drop down
+-------------------------------------------------------------------------------------
+
+    1. Dropdown are of two types:
+
+        A) Static Dropdown
+        B) Dynamic Dropdown
+
+        A) Static Dropdown
+            1) It have only selected list available in the Dropdown
+            2) We can handle the static drop down with 2 different methods
+                i) selectOption('var')
+                ii) selectOption({label: 'text'})
+
+            i) selectOption('var')
+                1. Start the test case by giving the scenario and visiting the page.
+                2. then locate the element and find it by selectoption giving the varaible.
+                    await page.locator('#fruits').selectOption('3')
+
+                    Here we want to select the Banana and the varaible for banana used in inspect is 3
+
+                3. then save the result locator in one varaible so that we can access in code
+                    
+                    let result =  page.locator('[class="subtitle"]')
+                
+                4. Do the assertion
+                    
+                    await expect(result).toBeVisible()
+                    await expect(result).toHaveText('You have selected Banana')
+                
+                5. Same pattern we can use for other dropdowns
+                    like for lang we use 'swift', for superheroes we use 'ta'
+
+            ii) selectOption({label: 'text'})
+                1. Here again we start with test case scenario then visit website.
+                2. Then locate the element 
+                3. here instead of varaible in selectoption we will use text
+
+                    await page.locator('#fruits').selectOption({label: 'Banana'})
+                
+                4. Then save the result assertion locator in varaible
+
+                    let result2 = page.locator('[class="subtitle"]')
+
+                5. Then assertion to check 
+
+                    await expect(result2).toBeVisible()
+                    await expect(result2).toHaveText('You have selected Banana')
+
+
+        B) Dyanmic Dropdown
+            1. Here we again start the case test scenario the website visit.
+
+            2. Locate the dropdown and fill the initial letter of the text we want
+
+                await page.locator('#src').fill('Nagpur')
+
+            3. Then we will check the selector for 
+                
+                await page.waitForSelector('.placeHolderMainText')
+            
+            4. Save the total character we get from letter in one varaible.
+
+                let StopCount = page.locator('.placeHolderMainText').count()
+            
+            5. Then will have the for loop
+                    for(let i=0; i<StopCount; i++){
+                        let Text1 = page.locator('[class="placeHolderMainText"]').nth(i).textContent()
+                        console.log(Text1)
+                        if(Text1 === 'Ravi Nagar'){
+                            await page.locator('[class="placeHolderMainText"]').nth(i).click()
+                            break
+                        }
+                    }
+
+            6. Make the loop till the text we want, once we receive the text break the loop.
+            
