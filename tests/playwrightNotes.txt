@@ -505,4 +505,49 @@ I) Drop down
                     }
 
             6. Make the loop till the text we want, once we receive the text break the loop.
-            
+
+
+---------------------------------------------------------------------------------------------------
+J) Drag and Drop
+---------------------------------------------------------------------------------------------------
+
+    1. This drag and drop we can do by 2 methods
+        A) Using InBluild command
+        B) Using Mouse Actions
+
+    2. In both the case we will first visit the website.
+
+        A) Using InBuild command
+            i) With let varaible we will save the locator in it.
+            ii) Here we have save the capital locator in one variable name Washing
+            iii) Country locator is save in one variable name US
+
+                    let Washing = page.locator('#box3')
+                    let US = page.locator('#box103')
+
+            iv) Now Drag the Capital to COuntry.
+
+                    await Washing.dragTo(US)
+
+            v) As soon we drag and drop the capital to country, capital name box will change its color to green.
+            vi) So for this we are looking assertion with style and visibility.
+
+                    expect(Washing).toHaveAttribute('style','visibility: visible; background-color: rgb(0, 255, 0);')
+
+        
+        B) Using Mouse Actions
+            i) First we locate the capital then hover over it.
+                    await page.locator('#box5').hover()
+            ii) Then press the mouse to select the box with down() method
+                    await page.mouse.down()
+            iii) Then drag that selected box to country locator and hover over it.
+                    await page.locator('#box105').hover()
+            iv) Then drop that box on country locator for that we will use up() method to release the button.
+                    await page.mouse.up()
+            v) Now we will perform assertion to see attribute like style and visiblity.
+                    await expect(await page.locator('#box5')).toHaveAttribute('style','visibility: visible; background-color: rgb(0, 255, 0);')
+
+
+
+
+
