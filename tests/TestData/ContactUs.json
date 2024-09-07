@@ -1,0 +1,23 @@
+[
+    {
+        "fstN": "Sonal",
+        "LstN": "Khante",
+        "email": "sonalk@gmail.com",
+        "msg": "I am learning playwright with JS",
+        "SuccessMsg": "Thank You for your Message!"    
+    },
+    {
+        "fstN": "Novika",
+        "LstN": "Khante",
+        "email": "novikak@gmail.com",
+        "msg": "I like karate",
+        "SuccessMsg": "Thank You for your Message!"
+    },
+    {
+        "fstN": "Ketan",
+        "LstN": "Lambat",
+        "email": "ketanl@gmail.com",
+        "msg": "I am working on fullstack",
+        "SuccessMsg": "Thank You for your Message!"
+    }
+]
